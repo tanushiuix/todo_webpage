@@ -1,18 +1,17 @@
 import "./App.css";
-import { React, useState } from "react";
-import { MdDelete } from "react-icons/md";
-import { MdEdit } from "react-icons/md";
+import React, { useState } from "react";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 function App() {
   const [allTodo, setTodo] = useState([]);
-  const [Title, setTitle] = useState("");
-  const [Description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleAddTodo = () => {
     let newTodoItem = {
-      title: Title,
-      description: Description,
-      isEditing: false, // Initially not in edit mode
+      title,
+      description,
+      isEditing: false,
     };
     setTodo([...allTodo, newTodoItem]);
     setTitle("");
@@ -29,12 +28,15 @@ function App() {
     let updatedTodo = [...allTodo];
     updatedTodo[index].isEditing = true;
     setTodo(updatedTodo);
+    
+    setTitle(updatedTodo[index].title);
+    setDescription(updatedTodo[index].description);
   };
 
   const handleUpdate = (index) => {
     let updatedTodo = [...allTodo];
-    updatedTodo[index].title = Title;
-    updatedTodo[index].description = Description;
+    updatedTodo[index].title = title;
+    updatedTodo[index].description = description;
     updatedTodo[index].isEditing = false;
     setTodo(updatedTodo);
     setTitle("");
@@ -50,7 +52,7 @@ function App() {
             type="text"
             placeholder="What's your task"
             className="input"
-            value={Title}
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
@@ -60,7 +62,7 @@ function App() {
             type="text"
             placeholder="What's your task description"
             className="input"
-            value={Description}
+            value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
@@ -80,14 +82,14 @@ function App() {
                   type="text"
                   placeholder="Updated Title"
                   className="input"
-                  value={Title}
+                  value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <input
                   type="text"
                   placeholder="Updated Description"
                   className="input"
-                  value={Description}
+                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
                 <button
